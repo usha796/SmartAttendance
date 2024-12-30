@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="rstyle.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register Here</h2>
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="username">Username*:</label><br>
+                <input type="text" id="username" required pattern="[a-zA-Z0-9./]{1,150}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email*:</label><br>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password*:</label><br>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Password confirmation*:</label><br>
+                <input type="password" id="confirm_password" required>
+            </div><br>
+            <button type="submit">Register</button><br>
+        </form>
+        
+    </div>
+    <!-- <script src="script.js"></script> --><script>function validateForm() {
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirm_password = document.getElementById("confirm_password").value;
+
+    var usernamePattern = /^[a-zA-Z0-9./]{1,150}$/;
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!usernamePattern.test(username)) {
+        alert("Invalid username. Please use only letters, digits, '.', '/', and maximum 150 characters.");
+        return false;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert("Invalid email address.");
+        return false;
+    }
+
+    if (password.length < 8 || password === "" || !/[a-zA-Z]/.test(password) || /^\d+$/.test(password)) {
+        alert("Invalid password. Please ensure your password is at least 8 characters long, contains at least one letter, and is not entirely numeric.");
+        return false;
+    }
+
+    if (password !== confirm_password) {
+        alert("Passwords do not match. Please re-enter your password.");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+</body>
+</html>

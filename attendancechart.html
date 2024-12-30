@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="attendanceChart" width="800" height="400"></canvas>
+
+    <script>
+        // Initialize attendance data
+        let attendanceData = {
+            labels: [],
+            datasets: [{
+                label: 'Attendance Count',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                data: []
+            }]
+        };
+
+        // Create Chart.js chart
+        let ctx = document.getElementById('attendanceChart').getContext('2d');
+        let attendanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: attendanceData,
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Update attendance data
+        // function updateAttendance(name) {
+        //     // Check if the name already exists in labels
+        //     let index = attendanceData.labels.indexOf(name);
+        //     if (index === -1) {
+        //         // If not, add the name to labels and set count to 1
+        //         attendanceData.labels.push(name);
+        //         attendanceData.datasets[0].data.push(1);
+        //     } else {
+        //         // If exists, increment the count
+        //         attendanceData.datasets[0].data[index]++;
+        //     }
+
+        //     // Update the chart
+        //     attendanceChart.update();
+        // }
+
+    // Update attendance data
+    function update_attendance(name) {
+        // Make an AJAX request to Flask server
+        fetch('/update_attendance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: name})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log(data.message);
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
+    </script>
+</body>
+</html>
